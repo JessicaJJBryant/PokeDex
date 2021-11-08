@@ -14,8 +14,8 @@ createPokeCard = (pokemon) => { //arrow function
     <div class = "img-container">
         <img src="${pokemon.data.sprites.front_shiny}" alt="${pokemon.data.name}">
     </div>
-    <h3 class="name">${pokemon.data.name.toUpperCase}</h3>
-    `;
+    <h3 class="name">${pokemon.data.name.toUpperCase()}</h3> 
+    `;                           //DON'T FORGET THE () ABOVE with toUpperCase
 }
 // The getPokemonData function makes an Axios GET request to the PokeAPI using a specific pokemon ID/number and then takes the returned data and passes it into the createPokeCard Function.
 // NOTE: the argument/value passed into the "id" parameter will be a number created in the loop in the next function (AKA the getPokemon function)
@@ -27,3 +27,11 @@ async function getPokemonData(id) {
     console.log(pokemonData.data.name);
     createPokeCard(pokemonData);
 }
+// The getPokemon function loops through all the pokemon IDs and runs/executes the getPokemonData function for each ID
+// NOTE: using async/await on this function because the code in the getPokemonData function is asynchronous and must wait (because there is an axios request in that function)
+async function getPokemon(){
+    for(i = 1; i <= numOfPokemon; i++){
+        await getPokemonData(i);
+    }
+}
+getPokemon();
